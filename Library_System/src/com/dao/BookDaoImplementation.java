@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.configuration.ConnectionFactory;
 import com.model.Book;
+import com.mysql.cj.protocol.Resultset;
 import com.service.BookService;
 
 public  class BookDaoImplementation implements BooKDao {
@@ -16,7 +17,7 @@ public  class BookDaoImplementation implements BooKDao {
 
 	public BookDaoImplementation() {
 
-		// ConnectionFactory = new ConnectionFactory();
+	//	 ConnectionFactory = new ConnectionFactory();
 	}
 
 	@Override
@@ -25,6 +26,8 @@ public  class BookDaoImplementation implements BooKDao {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
+		
+		
 		final String QUERY = "select * from books";
 		try {
 			connection = ConnectionFactory.getConnection();
@@ -84,9 +87,9 @@ public  class BookDaoImplementation implements BooKDao {
 			preparedStatement = connection.prepareStatement("insert into books values(?,?,?,?,?)");
 			preparedStatement.setInt(1, book.getBook_id());
 			preparedStatement.setString(2,book.getBook_name());
-			preparedStatement.setInt(4, book.getAuthor_id());
-			preparedStatement.setInt(3, book.getBook_price());
-			preparedStatement.setInt(5, book.getCategory_id());
+			preparedStatement.setInt(3, book.getCategory_id());
+			preparedStatement.setInt(4, book.getBook_price());
+			preparedStatement.setInt(5, book.getAuthor_id());
 			
 			status=preparedStatement.executeUpdate();
 
@@ -148,26 +151,42 @@ public  class BookDaoImplementation implements BooKDao {
 		// TODO Auto-generated method stub
 		return status1;
 	}
-	
-	public int updateBook(int book_id2,int book_price1,int category_id1)
-			{
+	@Override
+	public int updateBook(int book_id2, int book_price1,int category_id1) {
+		// TODO Auto-generated method stub
 		int r=0;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
 			connection = ConnectionFactory.getConnection();
-			preparedStatement = connection.prepareStatement("update books set price=?,category_id=?	where book_id=?");
-			preparedStatement.setInt(1,book_id2);
-			preparedStatement.setInt(2,book_price1);
-			preparedStatement.setInt(3,category_id1);
+			preparedStatement = connection.prepareStatement("update books set book_price=?,category_id=? where book_id=?");
 			
+			preparedStatement.setInt(1,book_price1);
+			preparedStatement.setInt(2, category_id1);
+			preparedStatement.setInt(3, book_id2);
+			/*preparedStatement.setInt(1,book.getBook_price());
+			preparedStatement.setInt(2,book.getCategory_id());
+			preparedStatement.setInt(3,book.getBook_id());*/
 		
 		r=preparedStatement.executeUpdate();
           System.out.println("updated successfully"+r);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-		} finally {
+		} finally 
+		{
+			/*
+			try 
+			{
+		
+				if (resultSet != null)
+					resultSet.close();
+			} 
+			catch (SQLException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}*/
 				try {
 					if(preparedStatement!=null)
 					preparedStatement.close();
@@ -183,7 +202,6 @@ public  class BookDaoImplementation implements BooKDao {
 					e.printStackTrace();
 				}
 		}
-		// TODO Auto-generated method stub
 		return r;
 	}
 	

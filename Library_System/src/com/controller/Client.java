@@ -4,7 +4,10 @@ import java.util.List;
 import java.util.Scanner;
 import com.dao.BookDaoImplementation;
 import com.model.Book;
+import com.model.Member;
 import com.service.BookServiceImplementation;
+import com.service.MemberService;
+import com.service.MemberServiceImplementation;
 import com.service.BookService;
 
 public class Client {
@@ -13,15 +16,20 @@ public class Client {
 	public static void main(String[] args) {
 		String str;
 	BookService bookService = new BookServiceImplementation();
+	MemberService memberService = new MemberServiceImplementation();
+
 	do
 	{
 	Scanner scanner=new Scanner(System.in);
-	System.out.println("1.Book_Details"+"\n"+"2.Add_Book"+"\n"+"3.Delete_Record"+"\n"+"4.Update_Record");
+	System.out.println("1.Book_Details"+"\n"+"2.Add_Book"+"\n"+"3.Delete_Record"+"\n"+"4.Update_Record"+"\n"+"5.Member_Details"+"\n"+"6.Add_Member"+"\n"+"7.Delete_Member");
 	System.out.println("\nEnter Choice");
 	int choice = scanner.nextInt();
 
 	List<Book> bookList=bookService.getAllBooks();
 	Iterator<Book> itr=bookList.iterator();
+	List<Member> memberList=memberService.getAllMembers();
+	Iterator<Member> itr1 =memberList.iterator();
+
 	switch(choice)
 	{
 	case 1:
@@ -73,8 +81,7 @@ int status1=bookService.deleteBook(book_id1);
     }
 break;
 	
-	/*case 4:
-	System.out.println("Enter Book Id To Update Record");*/
+
 	case 4:
 		System.out.println("Enter Book Id to update record");
 	int book_id2 = scanner.nextInt();
@@ -83,11 +90,63 @@ break;
 	System.out.println("Enter category id to update");
 	int category_id1= scanner.nextInt();
 	
-	bookService.updateBook(book_id2, book_price1, category_id1);
-break;}
-System.out.println("");
-	System.out.println("You Want Do More Opretions Yes/No");
+	int book1	=bookService.updateBook (book_id2, book_price1, category_id1);
+
+    if(book1 >0) {
+    	System.out.println("Book update sucessfully.....");
+    }else {
+    	System.out.println("Unable to update book......");
+    }
+break;
+	
+	case 5:
+		
+	System.out.println("**********   All Member details ***************");
+	while (itr1.hasNext())
+	{
+		Member member = (Member) itr1.next();
+		System.out.println("member_id:- "+ member.getMember_id());
+		System.out.println("member_name:- "+ member.getMember_name());
+		
+
+		System.out.println("**************************************");
+	}
+	
+	break;
+	case 6:
+		System.out.println("ADD Member");
+		System.out.println("Fill Up Member ID");
+		int member_id = scanner.nextInt();
+		System.out.println("Fill Up Member Name");
+		String member_name = scanner.next();
+	       	Member member = new Member(member_id,member_name);
+	       	int status3=memberService.addMember(member);
+	       	if(status3>0)
+	       	{
+	       		System.out.println("Member added sucessfully.....");
+		    }else {
+		    	System.out.println("Unable to add Member.........");
+		    }
+	       	break;
+	case 7:
+	
+	System.out.println("Delete Member");
+	System.out.println("Fill Up Member ID");
+	
+	int member_id1 = scanner.nextInt();
+	int status4=memberService.deleteMember(member_id1);
+       	
+    if(status4>0) {
+    	System.out.println("Member Delete sucessfully.....");
+    }else {
+    	System.out.println("Unable to Member book......");
+    }
+break;
+	}
+	System.out.println(" Do you Want Perform More Opretions yes / no");
+//	System.out.println("IF yes Enter Yes ");
 	str=scanner.next();
-	}while(str.equals("YES")||str.equals("yes"));
 	}
+	while(str.equals("YES")||str.equals("yes"));
 	}
+}

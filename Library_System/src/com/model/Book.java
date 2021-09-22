@@ -69,7 +69,7 @@ public class Book {
 		// TODO Auto-generated method stub
 		
 	}
-	public void updateBook(int book_id, int book_price, int categoryint_id)
+	public void updateBook(int book_id2, int book_price1, int category_id1)
 	{
 	
 	}

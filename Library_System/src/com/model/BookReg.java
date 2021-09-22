@@ -1,42 +1,69 @@
 package com.model;
 
-public class Category {
+public class BookReg {
+	int book_id;
+	String book_name;
+	int issue_date;
+	int due_date;
+	String book_returned;
 	
-	int category_id;
-	String category_name;
-	
-	public Category()
+	public BookReg()
 	{
-		
+	
 	}
 
-	public Category(int category_id, String category_name) {
+	public BookReg(int book_id, String book_name, int issue_date, int due_date, String book_returned) {
 		super();
-		this.category_id = category_id;
-		this.category_name = category_name;
+		this.book_id = book_id;
+		this.book_name = book_name;
+		this.issue_date = issue_date;
+		this.due_date = due_date;
+		this.book_returned = book_returned;
 	}
 
-	public int getCategory_id() {
-		return category_id;
+	public int getBook_id() {
+		return book_id;
 	}
 
-	public void setCategory_id(int category_id) {
-		this.category_id = category_id;
+	public void setBook_id(int book_id) {
+		this.book_id = book_id;
 	}
 
-	public String getCategory_name() {
-		return category_name;
+	public String getBook_name() {
+		return book_name;
 	}
 
-	public void setCategory_name(String category_name) {
-		this.category_name = category_name;
+	public void setBook_name(String book_name) {
+		this.book_name = book_name;
+	}
+
+	public int getIssue_date() {
+		return issue_date;
+	}
+
+	public void setIssue_date(int issue_date) {
+		this.issue_date = issue_date;
+	}
+
+	public int getDue_date() {
+		return due_date;
+	}
+
+	public void setDue_date(int due_date) {
+		this.due_date = due_date;
+	}
+
+	public String getBook_returned() {
+		return book_returned;
+	}
+
+	public void setBook_returned(String book_returned) {
+		this.book_returned = book_returned;
 	}
 
 	@Override
 	public String toString() {
-		return "Category [category_id=" + category_id + ", category_name=" + category_name + "]";
+		return "BookReg [book_id=" + book_id + ", book_name=" + book_name + ", issue_date=" + issue_date + ", due_date="
+				+ due_date + ", book_returned=" + book_returned + "]";
 	}
-
-	
-	
 }
